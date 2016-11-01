@@ -1,0 +1,12 @@
+* put
+* get
+* remove
+* vanish
+* iterator
+* size
+
+* socket interface
+* http interface
+
+* auto-start Tyrant
+* tests for malformed messages that return !0 status
