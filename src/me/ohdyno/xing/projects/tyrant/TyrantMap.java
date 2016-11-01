@@ -1,3 +1,5 @@
+package me.ohdyno.xing.projects.tyrant;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -44,6 +46,9 @@ class TyrantMap implements Iterable<byte[]> {
     }
 
     void remove(byte[] key) throws IOException {
+        if (key == null)
+            throw new IllegalArgumentException();
+
         writeOperation(REMOVE_OPERATION);
         writer.writeInt(key.length);
         writer.write(key);
@@ -69,6 +74,7 @@ class TyrantMap implements Iterable<byte[]> {
             byte[] firstKey = getNextKey();
 
             return new Iterator<byte[]>() {
+                private byte[] previousKey;
                 byte[] nextKey = firstKey;
 
                 @Override
@@ -80,8 +86,20 @@ class TyrantMap implements Iterable<byte[]> {
                 public byte[] next() {
                     try {
                         byte[] result = get(nextKey);
+                        previousKey = nextKey;
                         nextKey = getNextKey();
                         return result;
+                    } catch (IOException e) {
+                        throw new RuntimeException();
+                    }
+                }
+
+                @Override
+                public void remove() {
+                    try {
+                        TyrantMap.this.remove(previousKey);
+                    } catch (IllegalArgumentException e) {
+                        throw new IllegalStateException();
                     } catch (IOException e) {
                         throw new RuntimeException();
                     }

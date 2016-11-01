@@ -1,8 +1,11 @@
+package me.ohdyno.xing.projects.tyrant;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.*;
+import java.util.Iterator;
 
 import static org.junit.Assert.*;
 
@@ -42,6 +45,11 @@ public class TyrantMapTest {
         tyrant.remove(KEY);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void removeNull() throws Exception {
+        tyrant.remove(null);
+    }
+
     @Test
     public void emptyMapSizeIsZero() throws Exception {
         assertEquals(0, tyrant.size());
@@ -69,6 +77,21 @@ public class TyrantMapTest {
             count++;
         }
         assertEquals(2, count);
+    }
+
+    @Test
+    public void removeOneElement() throws Exception {
+        tyrant.put(KEY, VALUE);
+        Iterator<byte[]> all = tyrant.iterator();
+        all.next();
+        all.remove();
+        assertNull(tyrant.get(KEY));
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void removeBeforeNext() throws Exception {
+        Iterator<byte[]> iterator = tyrant.iterator();
+        iterator.remove();
     }
 
     @Before

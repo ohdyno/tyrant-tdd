@@ -2,10 +2,10 @@ X put
 X get
 X remove
 X vanish
-* iterator
+X iterator
 X size
 
-* socket interface
+X socket interface
 * http interface
 
 * auto-start Tyrant
