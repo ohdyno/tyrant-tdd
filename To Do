@@ -1,12 +1,14 @@
-* put
-* get
-* remove
-* vanish
+X put
+X get
+X remove
+X vanish
 * iterator
-* size
+X size
 
 * socket interface
 * http interface
 
 * auto-start Tyrant
 * tests for malformed messages that return !0 status
+* leave the world unchanged during tests
+* key and value as constants in the tests
