@@ -21,3 +21,8 @@ cd tokyo-tyrant
 make
 sudo make install
 ```
+
+## To Run Tokyo Tyrant
+```bash
+ttserver
+```
